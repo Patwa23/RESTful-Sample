@@ -22,18 +22,19 @@ public class MessageResource {
 	
 	MessageService msgService=new MessageService();
 	
-	//Select
+	//Select all Message
 	@GET
 	public List<Message> getMessages(){
 		return msgService.getAllMessages();
 	}
 	
-	
+	//Create or Add Message
 	@POST	
 	public Message addMessage(Message msg){
 		return msgService.addMessage(msg);
 	}
 	
+	//Update by Id
 	@PUT
 	@Path("/{messageId}")
 	public Message updateMessage(@PathParam("messageId")long id,Message msg){
@@ -41,13 +42,14 @@ public class MessageResource {
 		return msgService.updateMessage(msg);
 	}
 	
-	
+	//Delete by Id
 	@DELETE
 	@Path("/{messageId}")
 	public Message removeMessage(@PathParam("messageId")long id){
 		return msgService.removeMessage(id);
 	}
 	
+	//Select Message by Id
 	@GET
 	@Path("/{messageId}")
 	public Message getMessage(@PathParam("messageId")long id){
