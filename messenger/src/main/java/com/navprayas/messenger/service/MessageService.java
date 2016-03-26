@@ -1,6 +1,7 @@
 package com.navprayas.messenger.service;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
 import java.util.Map;
 
@@ -22,6 +23,29 @@ public class MessageService {
 		return new ArrayList<Message>(messages.values());
 	}
 	
+	
+	//Return a list of message filter by year
+	public List<Message> getAllMessagesForYear(int year){
+		ArrayList<Message> messageForYear=new ArrayList<>();
+		Calendar cal=Calendar.getInstance();
+		for(Message msg:messages.values()){
+			cal.setTime(msg.getCreated());
+			if (cal.get(Calendar.YEAR)==year){
+				messageForYear.add(msg);
+			}
+		}	
+	    return messageForYear;
+	}
+	
+	
+	//Return a list of message pagination having start point and size
+	public List<Message> getAllMessagesPaginated(int start, int size){
+		ArrayList<Message> list=new ArrayList<Message>(messages.values());
+		if(start+size>list.size())
+			return new ArrayList<Message>();
+	    return list.subList(start, start+size);
+	}
+		
 	public Message getMessage(long id){
 		return messages.get(id);
 	}
