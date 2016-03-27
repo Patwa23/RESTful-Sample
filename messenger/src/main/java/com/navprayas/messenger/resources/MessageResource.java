@@ -44,7 +44,7 @@ public class MessageResource {
 		if(msgFilterBean.getYear()>0){
 			return msgService.getAllMessagesForYear(msgFilterBean.getYear());
 		}
-		if(msgFilterBean.getStart()>=0 && msgFilterBean.getSize()>=0){
+		if(msgFilterBean.getStart()>=0 && msgFilterBean.getSize()>0){
 			return msgService.getAllMessagesPaginated(msgFilterBean.getStart(), msgFilterBean.getSize());
 		}
 		return msgService.getAllMessages();

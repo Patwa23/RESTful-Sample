@@ -6,6 +6,7 @@ import java.util.List;
 import java.util.Map;
 
 import com.navprayas.messenger.database.DatabaseClass;
+import com.navprayas.messenger.exception.DataNotFoundException;
 import com.navprayas.messenger.model.Message;
 
 public class MessageService {
@@ -47,7 +48,11 @@ public class MessageService {
 	}
 		
 	public Message getMessage(long id){
-		return messages.get(id);
+		Message msg=messages.get(id);
+		if(msg==null){
+			throw new DataNotFoundException("Message not found for Id :"+id);
+		}
+		return msg;
 	}
 	
 	public Message addMessage(Message msg){
