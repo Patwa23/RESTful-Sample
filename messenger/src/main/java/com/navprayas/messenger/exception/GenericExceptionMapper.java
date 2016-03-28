@@ -6,7 +6,7 @@ import javax.ws.rs.ext.ExceptionMapper;
 import javax.ws.rs.ext.Provider;
 
 import com.navprayas.messenger.model.ErrorMessage;
-@Provider
+//@Provider
 public class GenericExceptionMapper implements ExceptionMapper<Throwable>{
 
 	@Override

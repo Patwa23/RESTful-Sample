@@ -25,8 +25,8 @@ import com.navprayas.messenger.resources.bean.MessageFilterBean;
 import com.navprayas.messenger.service.MessageService;
 
 @Path("/messages")
-@Consumes(MediaType.APPLICATION_JSON)
-@Produces(MediaType.APPLICATION_JSON)
+@Consumes(value={MediaType.APPLICATION_JSON,MediaType.TEXT_XML})
+@Produces(value={MediaType.APPLICATION_JSON,MediaType.TEXT_XML})
 public class MessageResource {
 	
 	MessageService msgService=new MessageService();
@@ -87,8 +87,46 @@ public class MessageResource {
 	//Select Message by Id
 	@GET
 	@Path("/{messageId}")
-	public Message getMessage(@PathParam("messageId")long id){
-		return msgService.getMessage(id);		
+	public Message getMessage(@PathParam("messageId")long id,@Context UriInfo uriInfo){
+		Message message =msgService.getMessage(id);
+		message.addLink(getUriForSelf(uriInfo, message), "self");
+		message.addLink(getUriForProfile(uriInfo, message), "profile");
+		message.addLink(getUriForComment(uriInfo, message), "comment");
+		return message;		
+	}
+
+
+	private String getUriForComment(UriInfo uriInfo, Message message) {
+		String uri=uriInfo.getBaseUriBuilder()
+			//	  .path(CommentResource.class)
+			//	  .path(message.getAuthor())
+				  .path(MessageResource.class)
+				  .path(MessageResource.class,"getCommentResource")
+				  .path(CommentResource.class)
+				  .resolveTemplate("messageId", message.getId())
+				  .build()
+				  .toString();
+		return uri;
+	}
+
+
+	private String getUriForProfile(UriInfo uriInfo, Message message) {
+		String uri=uriInfo.getBaseUriBuilder()
+				  .path(ProfileResource.class)
+				  .path(message.getAuthor())
+				  .build()
+				  .toString();
+		return uri;
+	}
+
+
+	private String getUriForSelf(UriInfo uriInfo, Message message) {
+		String uri=uriInfo.getBaseUriBuilder()
+						  .path(MessageResource.class)
+						  .path(Long.toString(message.getId()))
+						  .build()
+						  .toString();
+		return uri;
 	}
 	
 

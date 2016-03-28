@@ -16,8 +16,8 @@ import com.navprayas.messenger.model.Comment;
 import com.navprayas.messenger.service.CommentService;
 
 @Path("/")
-@Produces(MediaType.APPLICATION_JSON)
-@Consumes(MediaType.APPLICATION_JSON)
+@Consumes(value={MediaType.APPLICATION_JSON,MediaType.TEXT_XML})
+@Produces(value={MediaType.APPLICATION_JSON,MediaType.TEXT_XML})
 public class CommentResource {
 	
 	private CommentService cmntService=new CommentService();

@@ -13,8 +13,8 @@ import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.UriInfo;
 
 @Path("/injectdemo")
-@Consumes(MediaType.TEXT_PLAIN)
-@Produces(MediaType.TEXT_PLAIN)
+@Consumes(value={MediaType.APPLICATION_JSON,MediaType.TEXT_XML})
+@Produces(value={MediaType.APPLICATION_JSON,MediaType.TEXT_XML})
 public class InjectDemoResource {
 	
 	// Matrix Param - http://localhost:8080/messenger/webapi/injectdemo/annotations;param=value

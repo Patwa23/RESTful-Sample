@@ -16,9 +16,9 @@ import com.navprayas.messenger.model.Message;
 import com.navprayas.messenger.model.Profile;
 import com.navprayas.messenger.service.ProfileService;
 @Path("/profiles")
-@Consumes(MediaType.APPLICATION_JSON)
-@Produces(MediaType.APPLICATION_JSON)
-public class ProfileResource {
+@Consumes(value={MediaType.APPLICATION_JSON,MediaType.TEXT_XML})  //Content-Type ->@Consumes
+@Produces(value={MediaType.APPLICATION_JSON,MediaType.TEXT_XML}) //Accepts -> @Produces
+ public class ProfileResource {
 	
 	private ProfileService profileService=new ProfileService();
 	
